@@ -12,7 +12,7 @@ import (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "deper-cli",
-	Short: "A brief description of your application",
+	Short: "deper는 개발자의 생산성을 도와주는 CLI입니다.",
 	Long: `A longer description that spans multiple lines and likely contains
 examples and usage of using your application. For example:
 
