@@ -8,12 +8,12 @@ public class SpringCodeGenerator extends SpringCodegen {
 
     public SpringCodeGenerator() {
         super();
-        templateDir = "oas";
+        templateDir = "nopecho";
     }
 
     @Override
     public String getName() {
-        return "oas";
+        return "nopecho";
     }
 
     @Override

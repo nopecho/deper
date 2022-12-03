@@ -337,6 +337,8 @@ helpsearch*/
 slprj/
 sccprj/
 
+### Swagger
+**/swagger-generated/
 
 # Simulink autosave extension
 *.autosave

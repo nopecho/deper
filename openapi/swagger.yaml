@@ -1,9 +1,0 @@
-openapi: 3.0.3
-info:
-  title: deper api spec
-  description: deper server api
-  version: 1.0.0
-servers:
-  - url: 'http://deper.com'
-paths:
-  

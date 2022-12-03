@@ -1,0 +1,21 @@
+{
+  "library": "spring-boot",
+  "interfaceOnly" : true,
+  "basePackage" : "gen.openapi",
+  "configPackage" : "gen.openapi.api.config",
+  "modelPackage": "gen.openapi.models",
+  "apiPackage": "gen.openapi.apis",
+  "invokerPackage": "gen.openapi.apis",
+  "useTags" : true,
+  "skipDefaultInterface" : true,
+  "dateLibrary": "java8",
+  "useBeanValidation" : true,
+  "serializableModel" : true,
+  "implicitHeaders" : false,
+  "swaggerDocketConfig": false,
+  "hideGenerationTimestamp": true,
+
+  "useSpringfox": false,
+  "reactive": false,
+  "openApiNullable" : false
+}

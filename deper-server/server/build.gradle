@@ -1,0 +1,104 @@
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.0'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id "org.openapi.generator" version "5.2.1"
+}
+
+group = 'com.nopecho.deper'
+sourceCompatibility = 11
+targetCompatibility = 11
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+configure(subprojects) {
+    apply plugin: "java-library"
+    sourceCompatibility = 11
+    targetCompatibility = 11
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //spring
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    implementation 'org.hibernate.validator:hibernate-validator:8.0.0.Final'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // swagger
+    implementation "io.springfox:springfox-boot-starter:3.0.0"
+    compileOnly 'io.swagger:swagger-annotations:1.6.8'
+    compileOnly 'jakarta.validation:jakarta.validation-api:3.0.2'
+    compileOnly 'org.openapitools:jackson-databind-nullable:0.2.4'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+
+// swagger config //
+def swaggerRoot = "$projectDir/src/main/swagger-config".toString()
+def swaggerAPIOutput = "$projectDir/src/main".toString()
+
+openApiValidate {
+    inputSpec="$swaggerRoot/spec.yml".toString()
+    recommend=true
+}
+
+openApiGenerate {
+    inputSpec="$swaggerRoot/spec.yml".toString()
+    generatorName = "spring"
+    configFile= "$swaggerRoot/config.json".toString()
+    outputDir= "$swaggerAPIOutput".toString()
+    configOptions = [
+            "sourceFolder" : "swagger-generated"
+    ]
+}
+
+tasks.named("openApiGenerate") {
+    def outputDir = "$projectDir/src/main/resources"
+    it.doFirst {
+        delete outputDir +"/"+ "swagger"
+    }
+
+    it.doLast {
+        delete "$projectDir/src/main/pom.xml"
+        delete "$projectDir/src/main/README.md"
+        delete "$projectDir/src/main/.openapi-generator-ignore"
+        delete "$projectDir/src/main/.openapi-generator"
+    }
+}
+
+task openApiYmlGenerate(type: GenerateTask){
+    inputSpec="$swaggerRoot/spec.yml".toString()
+    generatorName = "openapi-yaml".toString()
+    outputDir= "$swaggerAPIOutput/resources/swagger/".toString()
+    configOptions = [
+            outputFile: "openapi.yml"
+    ]
+
+    it.doFirst {
+        delete "$swaggerAPIOutput/resources/swagger/"
+    }
+}
+
+tasks.openApiGenerate.dependsOn  tasks.openApiValidate
+tasks.compileJava.dependsOn tasks.openApiGenerate, tasks.openApiYmlGenerate
+sourceSets.main.java.srcDir "${openApiGenerate.outputDir.get()}/${openApiGenerate.configOptions['sourceFolder'].get()}"
+sourceSets.main.resources.srcDir "${openApiGenerate.outputDir.get()}/src/main/resources"

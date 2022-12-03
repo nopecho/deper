@@ -1,0 +1,143 @@
+openapi: 3.0.3
+info:
+  version: 0.0.1
+  title: deper
+paths:
+  /apis/v1/deper/env:
+    post:
+      summary: 환경 변수 등록
+      operationId: registerEnv # 메서드 명
+      tags:
+        - command-env # 클래스 명
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/model'
+
+      responses:
+        '200':
+          description: description
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/model'
+        '400':
+          description: description
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/model'
+
+  /apis/v1/deper/envs:
+    get:
+      summary: 모든 환경 변수 조회
+      operationId: queryEnvs
+      tags:
+        - query-env
+      responses:
+        '200':
+          description: description
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/model'
+        '400':
+          description: description
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/model'
+        '500':
+          description: description
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/model'
+
+  /apis/v1/deper/envs/{id}:
+    get:
+      summary: 환경 변수 조회
+      operationId: queryEnv
+      tags:
+        - query-env
+      parameters:
+        - in: path
+          required: true
+          name: id
+          schema:
+            type: string
+            description: 환경 변수 아이디
+
+      responses:
+        '200':
+          description: description
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/model'
+        '400':
+          description: description
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/model'
+        '500':
+          description: description
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/model'
+
+components:
+  schemas:
+    model:
+      type: 'object'
+      required: [
+        string,
+        integer,
+        boolean,
+        array,
+        object
+      ]
+      properties:
+        string:
+          type: string
+          description:  'string'
+          example: 'string'
+
+        integer:
+          type: integer
+          description: 'integer'
+          example: 10000
+
+        boolean:
+          type: boolean
+          description: "boolean"
+          example: true
+
+        array:
+          type: array
+          items:
+            type: string
+            description: "array strings"
+            example: ['string1', 'string2']
+
+        object:
+          type: 'object'
+          properties:
+            properties1:
+              type: string
+              description: "object spring"
+              example: 'string!!!'
+            properties2:
+              type: integer
+              description: 'object integer'
+              example: 10000
+            properties3:
+              type: array
+              items:
+                type: string
+                description: "object array strings"
+                example: [ 'string1', 'string2' ]
