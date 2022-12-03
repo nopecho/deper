@@ -24,6 +24,7 @@ public class SpringCodeGenerator extends SpringCodegen {
         importMapping.remove("ApiModel");
     }
 
+
     @Override
     public CodegenModel fromModel(String name, Schema model) {
         super.fromModel(name, model);
