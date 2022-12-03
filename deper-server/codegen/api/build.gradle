@@ -1,0 +1,19 @@
+plugins {
+    id 'java-library'
+}
+
+group 'com.nopecho'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.openapitools:openapi-generator:5.2.1"
+}
