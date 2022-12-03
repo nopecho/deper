@@ -1,3 +1,5 @@
 rootProject.name = 'deper-server'
 include 'domain'
-
+include 'codegen'
+include 'codegen:api'
+findProject(':codegen:api')?.name = 'api'
