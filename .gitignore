@@ -336,8 +336,7 @@ helpsearch*/
 # Simulink code generation folders
 slprj/
 sccprj/
-
-
+/local-jenkins
 # Simulink autosave extension
 *.autosave
 

@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  redis:
+    container_name: redis
+    image: redis:7.0-alpine
+    restart: always
+    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./deper-infra/redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./deper-infra/redis/users.acl:/etc/redis/users.acl
+
+  jenkins:
+    container_name: jenkins
+    image: jenkins/jenkins:lts-jdk11
+    restart: always
+    ports:
+      - "9090:8080"
+      - "50000:50000"
+    volumes:
+      - ./local-jenkins:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
