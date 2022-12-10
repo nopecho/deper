@@ -42,7 +42,7 @@ dependencies {
     implementation "io.springfox:springfox-boot-starter:3.0.0"
     compileOnly 'io.swagger:swagger-annotations:1.6.8'
     compileOnly 'jakarta.validation:jakarta.validation-api:3.0.2'
-    compileOnly 'org.openapitools:jackson-databind-nullable:0.2.4'
+    compileOnly 'org.openapitools:jackson-databind-nullable:2.13.3'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
